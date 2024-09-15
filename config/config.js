@@ -13,9 +13,10 @@ const __dirname = import.meta.dirname;
 const theme_dir = path.join(
   __dirname,
   '..',
-  'theme',
+  'node_modules',
+  '@raneto/theme-default'
 );
-const theme_name = 'default';
+const theme_name = 'dist';
 
 const config = {
   // Your site title (format: page_title - site_title)
