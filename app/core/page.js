@@ -24,6 +24,7 @@ async function handler(filePath, config) {
     );
 
     // Render Markdown
+    // https://marked.js.org/using_advanced
     marked.use({
       // Removed in v8.x
       // https://github.com/markedjs/marked/releases/tag/v8.0.0

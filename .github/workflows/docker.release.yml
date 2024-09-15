@@ -5,42 +5,32 @@ name: Docker Release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Release Version'
+      tag:
+        description: 'Container Image Tag'
         required: true
         default: 'latest'
 
 jobs:
-  build:
-
+  docker:
     runs-on: ubuntu-latest
-    environment: Docker
-
     steps:
-      # https://github.com/marketplace/actions/checkout
-      # - name: Build the Docker image
-      #   uses: actions/checkout@v4
-      #   run: docker build . --file Dockerfile --tag raneto/raneto:latest-$(date +%s)
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      # https://github.com/marketplace/actions/docker-setup-buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # https://github.com/marketplace/actions/docker-login
-      # https://github.com/docker/login-action
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # https://github.com/marketplace/actions/build-and-push-docker-images
-      # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
       - name: Build and push "version"
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
-          #context: .
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags:
-            - "raneto/raneto:${{ github.event.inputs.version }}"
-            - "raneto/raneto:latest"
+          tags: |
+            jessenich91/raneto:${{ github.event.inputs.version }}
+            jessenich91/raneto:latest
