@@ -36,7 +36,8 @@
     "headerMetaInfo": "Meta information",
     "lableMetaTitle": "Title",
     "lableMetaDescription": "Description",
-    "lableMetaSort": "Sort"
+    "lableMetaSort": "Sort",
+    "contentHeader": "Content"
   },
 
   "home": {
